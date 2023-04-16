@@ -1,0 +1,10 @@
+- name: execute shell
+  become_user: isucon
+  shell: /home/isucon/private_isu.git/benchmarker/bin/benchmarker -u /home/isucon/private_isu.git/benchmarker/userdata -t http://192.168.11.41
+  register: return_from_shell
+  changed_when: no
+
+- name: show previous shell stdout
+  become_user: isucon
+  debug:
+    msg: "{{ return_from_shell.stdout }}"

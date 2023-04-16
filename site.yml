@@ -1,0 +1,31 @@
+- name: isu1
+  hosts: isu1
+  gather_facts: no
+  user: user
+  become: yes
+  max_fail_percentage: 0
+  tasks:
+    #- import_tasks : ./tasks/common.yml
+    #- import_tasks : ./tasks/fluent-bit.yml
+    - import_tasks : ./tasks/nginx-prometheus-exporter.yml
+    #- import_tasks : ./tasks/node_exporter.yml
+    #- import_tasks : ./tasks/isu_pre.yml
+
+- name: isu1-deploy
+  hosts: isu1
+  gather_facts: no
+  user: isucon
+  max_fail_percentage: 0
+  tasks:
+    #- import_tasks : ./tasks/isu_deploy.yml
+
+- name: isu-bm
+  hosts: isu_bm
+  gather_facts: no
+  user: user
+  become: yes
+  max_fail_percentage: 0
+  tasks:
+    #- import_tasks : ./tasks/common.yml
+    #- import_tasks : ./tasks/isu-bm_pre.yml
+    #- import_tasks : ./tasks/isu-bm_bench.yml

@@ -1,0 +1,13 @@
+[Unit]
+Description=Nginx Prometheus Exporter
+Wants=network-online.target
+After=network-online.target
+
+[Service]
+Type=simple
+ExecStart=/usr/local/bin/nginx-prometheus-exporter -nginx.scrape-uri http://localhost/stub_status
+TimeoutStopSec=20s
+SendSIGKILL=no
+
+[Install]
+WantedBy=multi-user.target

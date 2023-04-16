@@ -1,0 +1,26 @@
+- name: Copy root key
+  copy:
+    src: /home/user/.ssh/authorized_keys
+    dest: /root/.ssh
+    mode: '0600'
+    remote_src: yes
+  ignore_errors: yes
+
+- name: create directory
+  file:
+    path: /home/isucon/.ssh
+    state: directory
+    owner: isucon
+    group: isucon
+    mode: '0700'
+  ignore_errors: yes
+
+- name: Copy isucon key
+  copy:
+    src: /home/user/.ssh/authorized_keys
+    dest: /home/isucon/.ssh
+    owner: isucon
+    group: isucon
+    mode: '0600'
+    remote_src: yes
+  ignore_errors: yes

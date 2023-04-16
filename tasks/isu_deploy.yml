@@ -1,0 +1,19 @@
+- name: isu-ruby is disabled
+  systemd:
+    name: isu-ruby
+    state: stopped
+    enabled: false
+  become: yes
+
+- name: isu-go is running
+  systemd:
+    name: isu-go
+    state: started
+    enabled: true
+  become: yes
+
+- name: isu-go is running
+  systemd:
+    name: isu-go
+    state: restarted
+  become: yes
