@@ -1,0 +1,23 @@
+- name: tar
+  shell: tar cvf ~/private_isu/webapp.tar.gz ~/private_isu/webapp
+
+- name: fetch
+  fetch:
+    src: ~/private_isu/webapp.tar.gz
+    dest: ./files/fetch/
+    flat: yes
+
+- name: remove file
+  file: 
+    path: ~/private_isu/webapp.tar.gz
+    state: absent
+
+
+- name: create mysqldump
+  shell: mysqldump -u isuconp dbname | gzip > dbname.dump.gz 
+
+- name: fetch
+  fetch:
+    src: ~/backup/mysqldump.sql.bz2
+    dest: ./files/fetch/
+    flat: yes

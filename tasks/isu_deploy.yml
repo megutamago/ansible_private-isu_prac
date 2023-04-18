@@ -12,8 +12,25 @@
     enabled: true
   become: yes
 
-- name: isu-go is running
+##########################
+
+
+
+
+- name: isu-go is restarted
   systemd:
     name: isu-go
+    state: restarted
+  become: yes
+
+- name: nginx is restarted
+  systemd:
+    name: nginx
+    state: restarted
+  become: yes
+
+- name: mysql is restarted
+  systemd:
+    name: mysql
     state: restarted
   become: yes
