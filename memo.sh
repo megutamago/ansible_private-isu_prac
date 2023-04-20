@@ -43,4 +43,23 @@ pv db_name.dump.sql | mysql -u root -pPASSWORD < testdatabase
 
 
 #alp
-cat /var/log/nginx/access.log | alp ltsv -m '/image/[0-9]+,/posts/[0-9]+'
+cat /var/log/nginx/access.log | alp ltsv -m '/image/[0-9]+,/posts/[0-9]+' --sort avg -r -o count,1xx,2xx,3xx,4xx,5xx,min,max,avg,sum,p99,method,uri
+
+
+#systemd
+※./files/pattern.sh
+systemctl list-units --all --type=service | grep -v inactive > systemd-extract.txt 
+systemctl list-units --all --type=service | grep -v inactive \
+| sed '1d' | sed '$d' | sed '$d' | sed '$d' | sed '$d' | sed '$d' \
+| awk '{print $1}' > pattern.txt
+
+grep -vf pattern.txt systemd-extract.txt | tee r.txt
+grep -vf pattern.txt systemd-extract.txt | awk '{print $1}'
+
+   # private-isu result
+   isu-go.service
+   memcached.service
+   mysql.service
+   nginx.service
+   systemd-fsck@dev-disk-by\x2dlabel-UEFI.service
+   uuidd.service

@@ -1,0 +1,14 @@
+- name: Create directory
+  file:
+    path: /root/os-data
+    state: directory
+    recurse: true
+
+- name: Copy
+  copy:
+    src: ../../files/collect.sh
+    dest: /root/os-data/collect.sh
+    mode: '0755'
+
+- name: shell
+  shell: sh /root/os-data/collect.sh

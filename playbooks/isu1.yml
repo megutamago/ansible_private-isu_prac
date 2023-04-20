@@ -9,7 +9,8 @@
     #- import_tasks : ../tasks/tools_for_isu/
     #- import_tasks : ../tasks/tasks_for_isu/netdata.yml
     #- import_tasks : ../tasks/tasks_for_isu/alp.yml
-    - import_tasks : ../tasks/tasks_for_isu/nginx.yml
+    #- import_tasks : ../tasks/tasks_for_isu/nginx.yml
+    - import_tasks : ../tasks/tasks_for_isu/os-data-collect.yml
 
 - name: isu1-deploy
   hosts: isu1
