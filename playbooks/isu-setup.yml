@@ -1,0 +1,19 @@
+- name: isu-setup
+  hosts: isu1
+  gather_facts: no
+  user: user
+  become: yes
+  max_fail_percentage: 0
+  tasks:
+    - import_tasks : ../tasks/common/common.yml
+    - import_tasks : ../tasks/isu/pre-sshkey.yml
+
+- name: isu-setup
+  hosts: isu_bm
+  gather_facts: no
+  user: user
+  become: yes
+  max_fail_percentage: 0
+  tasks:
+    - import_tasks : ../tasks/common/common.yml
+    - import_tasks : ../tasks/isu/pre-sshkey.yml

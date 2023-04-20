@@ -24,7 +24,7 @@
 
 - name: Copy nginx-prometheus-exporter.service
   copy:
-    src: "./files/nginx-prometheus-exporter.service"
+    src: "../files/nginx-prometheus-exporter.service"
     dest: /etc/systemd/system/
     mode: '0644'
 

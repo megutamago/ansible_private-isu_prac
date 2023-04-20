@@ -1,0 +1,15 @@
+- name: Copy
+  copy:
+    src: ../../files/nginx.conf
+    dest: /etc/nginx/nginx.conf
+    mode: '0644'
+
+- name: remove file
+  file: 
+    path: /var/log/nginx/access.log
+    state: absent
+
+- name: reloaded
+  systemd:
+    name: nginx
+    state: reloaded

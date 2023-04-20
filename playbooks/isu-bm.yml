@@ -1,0 +1,8 @@
+- name: benchMark
+  hosts: isu_bm
+  gather_facts: no
+  user: user
+  become: yes
+  max_fail_percentage: 0
+  tasks:
+    - import_tasks : ../tasks/isu/isu-bm_bench.yml

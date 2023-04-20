@@ -3,14 +3,14 @@
 
 - name: Copy fluent-bit.conf
   copy:
-    src: ./files/fluent-bit.conf
+    src: ../files/fluent-bit.conf
     dest: /etc/fluent-bit/
     mode: '0644'
   ignore_errors: yes
 
 - name: Copy inputs.conf
   copy:
-    src: ./files/inputs.conf
+    src: ../files/inputs.conf
     dest: /etc/fluent-bit/
     mode: '0644'
   ignore_errors: yes

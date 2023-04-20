@@ -1,0 +1,22 @@
+- name: isu1-config
+  hosts: isu1
+  gather_facts: no
+  user: user
+  become: yes
+  max_fail_percentage: 0
+  tasks:
+    #- import_tasks : ../tasks/monitoring/fluent-bit.yml
+    #- import_tasks : ../tasks/tools_for_isu/
+    #- import_tasks : ../tasks/tasks_for_isu/netdata.yml
+    #- import_tasks : ../tasks/tasks_for_isu/alp.yml
+    - import_tasks : ../tasks/tasks_for_isu/nginx.yml
+
+- name: isu1-deploy
+  hosts: isu1
+  gather_facts: no
+  user: isucon
+  max_fail_percentage: 0
+  tasks:
+    #- import_tasks : ../tasks/isu/isu_app-fetch.yml
+    #- import_tasks : ../tasks/isu/isu_deploy.yml
+    

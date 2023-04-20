@@ -24,7 +24,7 @@
 
 - name: Copy node_exporter.service
   copy:
-    src: "./files/node_exporter.service"
+    src: "../files/node_exporter.service"
     dest: /etc/systemd/system/
     mode: '0644'
 
