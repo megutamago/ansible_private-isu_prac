@@ -17,19 +17,35 @@
     repo: https://github.com/megutamago/test-private_isu.git
     dest: /home/isucon/test-private_isu
 
+- name: Copy
+  copy:
+    src: /home/isucon/private_isu/webapp
+    dest: /home/isucon/private_isu/.bk
+    remote_src: yes
+  ignore_errors: yes
+
 - name: remove
   file: 
     path: /home/isucon/private_isu/webapp
     state: absent
 
-- name: shell
-  shell: mv /home/isucon/test-private_isu/webapp /home/isucon/private_isu/
+- name: Copy
+  copy:
+    src: /home/isucon/test-private_isu/webapp
+    dest: /home/isucon/private_isu/
+    remote_src: yes
+  ignore_errors: yes
 
 - name: remove
   file: 
     path: /home/isucon/test-private_isu
     state: absent
-  ignore_errors: yes
+
+### Execute as login shell
+- name: setup
+  shell: bash -lc "sh setup.sh"
+  args:
+    chdir: /home/isucon/private_isu/webapp/golang/
 
 - name: isu-go is restarted
   systemd:
