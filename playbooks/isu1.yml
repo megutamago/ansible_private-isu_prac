@@ -1,23 +1,26 @@
-- name: isu1-config
+- name: tasks_for_isu
   hosts: isu1
   gather_facts: no
   user: user
   become: yes
   max_fail_percentage: 0
   tasks:
+    #- import_tasks : ../tasks/isu/isu_app
     #- import_tasks : ../tasks/monitoring/fluent-bit.yml
-    #- import_tasks : ../tasks/tools_for_isu/
+    #- import_tasks : ../tasks/monitoring/node_exporter.yml
     #- import_tasks : ../tasks/tasks_for_isu/netdata.yml
     #- import_tasks : ../tasks/tasks_for_isu/alp.yml
     #- import_tasks : ../tasks/tasks_for_isu/nginx.yml
-    - import_tasks : ../tasks/tasks_for_isu/os-data-collect.yml
+    #- import_tasks : ../tasks/tasks_for_isu/pt-query-digest.yml
+    #- import_tasks : ../tasks/tasks_for_isu/mysql.yml
+    #- import_tasks : ../tasks/tasks_for_isu/os-data-collect.yml
 
-- name: isu1-deploy
+- name: isu
   hosts: isu1
   gather_facts: no
   user: isucon
   max_fail_percentage: 0
   tasks:
     #- import_tasks : ../tasks/isu/isu_app-fetch.yml
-    #- import_tasks : ../tasks/isu/isu_deploy.yml
+    - import_tasks : ../tasks/isu/isu_deploy.yml
     

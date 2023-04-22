@@ -3,6 +3,7 @@
     src: ../../files/nginx.conf
     dest: /etc/nginx/nginx.conf
     mode: '0644'
+    backup: true
 
 - name: remove file
   file: 

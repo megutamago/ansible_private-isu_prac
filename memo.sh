@@ -56,10 +56,9 @@ systemctl list-units --all --type=service | grep -v inactive \
 grep -vf pattern.txt systemd-extract.txt | tee r.txt
 grep -vf pattern.txt systemd-extract.txt | awk '{print $1}'
 
-   # private-isu result
-   isu-go.service
-   memcached.service
-   mysql.service
-   nginx.service
-   systemd-fsck@dev-disk-by\x2dlabel-UEFI.service
-   uuidd.service
+
+# unarchive
+rm -rf ../test-private_isu/webapp/ && \
+tar zxvfp ./files/fetch/webapp.tar.gz -C ../test-private_isu/ && \
+mv ../test-private_isu/home/isucon/private_isu/webapp ../test-private_isu/ && \
+rm -rf ../test-private_isu/home/

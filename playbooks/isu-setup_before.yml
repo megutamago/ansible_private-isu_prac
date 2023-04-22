@@ -6,7 +6,7 @@
   max_fail_percentage: 0
   tasks:
     - import_tasks : ../tasks/common/common.yml
-    - import_tasks : ../tasks/isu/pre-sshkey.yml
+    - import_tasks : ../tasks/isu/sshkey_before.yml
 
 - name: isu-setup
   hosts: isu_bm
@@ -16,4 +16,4 @@
   max_fail_percentage: 0
   tasks:
     - import_tasks : ../tasks/common/common.yml
-    - import_tasks : ../tasks/isu/pre-sshkey.yml
+    - import_tasks : ../tasks/isu/sshkey_before.yml

@@ -12,10 +12,24 @@
     enabled: true
   become: yes
 
-##########################
+- name: Git checkout
+  git:
+    repo: https://github.com/megutamago/test-private_isu.git
+    dest: /home/isucon/test-private_isu
 
+- name: remove
+  file: 
+    path: /home/isucon/private_isu/webapp
+    state: absent
 
+- name: shell
+  shell: mv /home/isucon/test-private_isu/webapp /home/isucon/private_isu/
 
+- name: remove
+  file: 
+    path: /home/isucon/test-private_isu
+    state: absent
+  ignore_errors: yes
 
 - name: isu-go is restarted
   systemd:
@@ -23,10 +37,22 @@
     state: restarted
   become: yes
 
+- name: remove
+  file: 
+    path: /var/log/nginx/access.log
+    state: absent
+  become: yes
+
 - name: nginx is restarted
   systemd:
     name: nginx
     state: restarted
+  become: yes
+
+- name: remove
+  file: 
+    path: /var/log/mysql/mysql-slow.sql
+    state: absent
   become: yes
 
 - name: mysql is restarted
