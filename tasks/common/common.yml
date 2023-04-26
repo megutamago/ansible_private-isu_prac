@@ -22,3 +22,11 @@
   apt:
     upgrade: yes
     update_cache: true
+
+- name: set inputrc
+  lineinfile:
+    dest: /etc/inputrc
+    insertafter: EOF
+    line: '{{ item }}'
+  with_items:
+  - "set bell-style none"

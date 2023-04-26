@@ -10,6 +10,7 @@
     insertafter: EOF
     regexp: '^#?\s*bind socket to IP'
     line: 'bind socket to IP = 192.168.11.41'
+  ignore_errors: yes
 
 - name: netdata is running
   systemd:

@@ -12,3 +12,14 @@
 
 - name: shell
   shell: sh /root/os-data/collect.sh
+
+- name: fetch
+  fetch:
+    src: /root/os-data/result.txt
+    dest: ../files/fetch/
+    flat: yes
+
+- name: remove file
+  file: 
+    path: /root/os-data
+    state: absent

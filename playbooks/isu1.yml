@@ -5,7 +5,6 @@
   become: yes
   max_fail_percentage: 0
   tasks:
-    #- import_tasks : ../tasks/isu/isu_app
     #- import_tasks : ../tasks/monitoring/fluent-bit.yml
     #- import_tasks : ../tasks/monitoring/node_exporter.yml
     #- import_tasks : ../tasks/tasks_for_isu/netdata.yml
