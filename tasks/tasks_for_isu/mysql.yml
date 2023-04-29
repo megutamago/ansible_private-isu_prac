@@ -1,6 +1,6 @@
 - name: Copy
   copy:
-    src: ../../files/my.cnf
+    src: ../../files/mysql.cnf
     dest: /etc/mysql/conf.d/mysql.cnf
     mode: '0644'
     backup: true

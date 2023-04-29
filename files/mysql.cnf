@@ -2,3 +2,7 @@
 slow_query_log = 1
 slow_query_log-file = /var/log/mysql/mysql-slow.sql
 long_query_time = 0.1
+
+[client]
+user = isuconp
+password = isuconp

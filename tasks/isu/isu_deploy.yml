@@ -71,6 +71,15 @@
     state: absent
   become: yes
 
+- name: chmod
+  file: 
+    path: /home/isucon/private_isu/webapp/sql/init.sh
+    mode: '0755'
+  become: yes
+
+- name: shell
+  shell: sh /home/isucon/private_isu/webapp/sql/init.sh
+
 - name: mysql is restarted
   systemd:
     name: mysql

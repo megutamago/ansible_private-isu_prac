@@ -6,7 +6,7 @@ mysql -u isuconp -pisuconp
 # > isuconp
 SHOW DATABASES;
 use isuconp;
-use mysql;
+SELECT database();
 SHOW TABLES;
 # システム変数
 mysql> SHOW VARIABLES;
@@ -16,6 +16,17 @@ SHOW CREATE TABLE posts \G
 SHOW CREATE TABLE users \G
 # index確認
 show index from comments\G
+
+mysql --defaults-file=/dev/null -h 127.0.0.1 -P 3306 -u isuconp -pisuconp isuconp
+vim /etc/mysql/my.cnf
+# ------------ #
+[client]
+user = isuconp
+password = isuconp
+# ------------ #
+mysql --defaults-file=/etc/mysql/my.cnf -h 127.0.0.1 -P 3306 isuconp
+
+
 
 
 ### mysqldump ###
