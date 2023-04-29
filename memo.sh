@@ -16,7 +16,7 @@ ps aux | grep ssh
 curl http://localhost:8080/
 # pprof
 curl http://127.0.0.1:1080/
-# http://192.168.11.31:1080/
+# http://192.168.11.21:1080/
 kill <PID>
 
 ### wipe ps

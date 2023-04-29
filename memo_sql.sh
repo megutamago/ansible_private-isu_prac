@@ -10,7 +10,12 @@ use mysql;
 SHOW TABLES;
 # システム変数
 mysql> SHOW VARIABLES;
-
+# テーブル構造の確認
+SHOW CREATE TABLE comments \G
+SHOW CREATE TABLE posts \G
+SHOW CREATE TABLE users \G
+# index確認
+show index from comments\G
 
 
 ### mysqldump ###
