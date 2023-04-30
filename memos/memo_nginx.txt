@@ -1,0 +1,71 @@
+
+# Key Word
+・redis
+・HTTP Proxy
+・アプリ内からキャッシュの更新（削除）
+
+× openrestry
+× lua
+× fastCGI
+
+##### openresty #####
+# Ref
+https://qiita.com/nobuh/items/40ef50dd70fdf8a580e4
+https://openresty.org/en/installation.html
+https://openresty.org/en/linux-packages.html#ubuntu
+https://self-development.info/openresty%EF%BC%88nginx%EF%BC%89%E3%81%A7lua%E3%82%92%E5%8B%95%E3%81%8B%E3%81%99/
+https://self-development.info/ubuntu-20-04%e3%81%ablua-5-4%e3%82%92%e3%82%a4%e3%83%b3%e3%82%b9%e3%83%88%e3%83%bc%e3%83%ab%e3%81%99%e3%82%8b/
+https://www.seeds-std.co.jp/blog/creators/2020-04-13-103051/
+https://qiita.com/masato/items/14c14a516ea32783941c
+https://office54.net/iot/linux/nginx-setting-file
+
+↓おすすめ記事 ####
+https://ja.linux-console.net/?p=989#gsc.tab=0
+静的ページ：要求されたデータをWebサーバーがブラウザに送信するだけなので、Webページを早く表示することができます。 
+動的ページ：プログラムがWebサーバー上で実行され、CPUに負荷がかかるので、その分Webページの表示速度は遅くなってしまいます。
+
+↓GoではHTTP Proxyでいい(記事に理由)
+https://teratail.com/questions/344949
+
+# Ref for proxy cache redis 
+https://rin-ka.net/nginx-proxy-cache/
+https://www.nginx.com/resources/wiki/modules/redis/
+https://qiita.com/kj_hira/items/0cf36602321c5098dc06
+https://qiita.com/devneko/items/1bc3ac950519bcf6de96
+https://www.prime-strategy.co.jp/resource/pdf/DevelopersSummit2020.pdf
+https://blog.ssrf.in/post/2017-08-09-dynamic-reverse-proxy-with-nginx/
+
+### 結論 Goでopenresty,fastCGIいらん
+
+### 結論.1 以下記事のように、GoでproxyCacheのredis化するならopenresty使うが一番そう
+https://blog.ssrf.in/post/2017-08-09-dynamic-reverse-proxy-with-nginx/
+
+### 結論.2 nginxでcacheのredis化は面倒だからなし。インメモリのみ。※インメモリ以外考えない
+
+
+
+
+
+# procedure for install
+sudo systemctl disable nginx
+sudo systemctl stop nginx
+sudo apt-get -y install --no-install-recommends wget gnupg ca-certificates
+wget -O - https://openresty.org/package/pubkey.gpg | sudo gpg --dearmor -o /usr/share/keyrings/openresty.gpg
+echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/openresty.gpg] http://openresty.org/package/ubuntu $(lsb_release -sc) main" | sudo tee /etc/apt/sources.list.d/openresty.list > /dev/null
+sudo apt-get update
+#sudo apt-get -y install openresty
+sudo apt-get -y install --no-install-recommends openresty
+
+systemctl disable nginx
+systemctl stop nginx
+apt -y install --no-install-recommends wget gnupg ca-certificates
+wget -O - https://openresty.org/package/pubkey.gpg | gpg --dearmor -o /usr/share/keyrings/openresty.gpg
+echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/openresty.gpg] http://openresty.org/package/ubuntu $(lsb_release -sc) main" | sudo tee /etc/apt/sources.list.d/openresty.list > /dev/null
+apt -y update
+#sudo apt -y install openresty
+apt -y install --no-install-recommends openresty
+# systemctl status openresty
+
+※　80ポートが被っている nginx,openresty どう使うか？
+
+

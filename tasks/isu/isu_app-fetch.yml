@@ -12,6 +12,12 @@
     path: /home/isucon/private_isu/webapp.tar.gz
     state: absent
 
+- name: fetch
+  fetch:
+    src: /etc/nginx/nginx.conf
+    dest: ../files/fetch/
+    flat: yes
+
 #- name: create mysqldump
 #  shell: mysqldump -u isuconp dbname | gzip > /home/isucon/dbname.dump.gz 
 #

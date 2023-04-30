@@ -1,0 +1,19 @@
+- name: Install the package
+  apt:
+    name:
+    - lsb-release
+
+- name: curl
+  shell: curl -fsSL https://packages.redis.io/gpg | sudo gpg --dearmor -o /usr/share/keyrings/redis-archive-keyring.gpg
+
+- name: echo
+  shell: echo "deb [signed-by=/usr/share/keyrings/redis-archive-keyring.gpg] https://packages.redis.io/deb $(lsb_release -cs) main" | sudo tee /etc/apt/sources.list.d/redis.list
+
+- name: Update
+  apt:
+    update_cache: true
+
+- name: Install the package
+  apt:
+    name:
+    - redis

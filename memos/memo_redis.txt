@@ -1,0 +1,238 @@
+
+# 考え方,＞RedisはUnixドメインソケットで接続する。
+https://qiita.com/Fea/items/4d628d7ab31150809502
+
+
+# Go mysql redis cache
+https://medium.com/@jaya.p/golang-redis-mysql-integration-5468829cbd49
+
+
+https://qiita.com/taisei_otsuka/items/74c91bb39a0aa8e6163c
+
+
+
+cat /etc/redis/redis.conf | grep -v -e '^\s*#' -e '^\s*$'
+
+
+
+### 基本操作
+# 接続, password には redis.conf で設定した接続パスワードを指定
+redis-cli -a password
+> quit 
+# オプション指定無しでの接続後に認証することも可能
+redis-cli
+> auth password
+# データベースID「1」を明示的に指定して接続
+# 上例のように指定無しの場合はデータベースID「0」に接続される
+redis-cli -a password -n 1
+# データベースID「2」に変更する
+> select 2 
+# 他ホストの Redis サーバーへ接続する場合は -h [hostname] を付加して実行
+[root@dlp ~]# redis-cli -h node01.srv.world -a password
+# redis-cli にコマンドを続けると 非対話モードで結果を取得可
+# 例として キー「key01」の値を取得する
+redis-cli -a password get key01
+
+# フォアグラウンドでデータをディスクに保存する
+> save 
+# バックグラウンドでデータをディスクに保存する
+> bgsave 
+# データをディスクに保存して Redis をシャットダウンする
+> shutdown 
+> quit 
+ps aux | grep [r]edis
+
+> get key01 
+# 複数キーの値をまとめて参照する
+> mget key01 key02 key03
+# 現在のデータベースのキーを全て削除する
+> flushdb 
+# 全てのデータベースのキーを全て削除する
+> flushall 
+> quit 
+
+# リスト中の指定した開始番号から終了番号までの要素を返す
+> lrange list01 0 1
+
+# ハッシュのフィールドと値を全て返す
+> hgetall hash01 
+
+# セットのメンバーを全て返す
+> smembers set01
+
+# Redis : Python で利用する
+  yum --enablerepo=epel -y install python-redis
+[cent@dlp ~]$ vi use_redis.py
+#!/usr/bin/env python
+import redis
+client = redis.StrictRedis(host='127.0.0.1', port=6379, db=0, password='password')
+# キーに値をセットして表示
+client.set("key01", "value01")
+print "key01.value :", client.get("key01")
+# キーに値をアペンドして表示
+client.append("key01", ",value02")
+print "key01.value :", client.get("key01")
+
+# 全key表示
+keys *
+
+
+
+
+### Go & Redis
+
+package main
+import (
+        "fmt"
+        "strconv"
+        "database/sql"
+        _ "github.com/go-sql-driver/mysql"
+        "github.com/go-redis/redis"
+)
+
+func main() {
+    // search variable 
+    searchId := 5
+    // Open Redis Connection
+    redisClient := newRedisClient()
+    result, err := redisPing(redisClient)
+    if err != nil {
+        fmt.Println(err)
+    } else {
+        fmt.Println(result)
+    }
+
+    // Search value in redis
+    nameInRedis, err = redisClient.Get("name_"+strconv.Itoa(searchId)).Result()
+    if err != nil { // unexpected error
+      fmt.Println(err)
+    } else if err == redis.Nil { //key name_[searchId] does not exist in redis
+        // Open MySQL Connection
+        db, err := sql.Open("mysql", "root:root@tcp(127.0.0.1:3306)/test")
+        if err != nil {
+            panic(err.Error())
+        }
+        defer db.Close()
+
+        // Prepare statement for reading data
+        stmtOut, err := db.Prepare("SELECT name FROM test WHERE id = ?") // ? is the variable placeholder
+        if err != nil {
+            panic(err.Error())
+        }
+        defer stmtOut.Close() // Close the statement when we leave main() or the program terminates
+
+        // Query the rows that has id more than 5
+        rows, err := stmtOut.Query(searchId) 
+        if err != nil {
+            panic(err.Error()) 
+        }
+
+        // Process each rows accordingly
+        numRows = 0
+        for rows.Next() {
+            var nameInSQL string
+            err = rows.Scan(&nameInSQL)
+            if err != nil {
+                panic(err.Error())
+            }
+            fmt.Printf("name is %s\n", nameInSQL)
+            numRows = numRows + 1
+        }
+        if numRows == 0 {
+            fmt.Printf("corresponding name is not found\n")
+        } else { //key name_[searchId] exists in redis
+        fmt.Printf("name is %s\n", nameInRedis)
+        }
+    }
+}
+
+func newRedisClient() *redis.Client {
+	redisClient := redis.NewClient(&redis.Options{
+		Addr: "localhost:6379",
+		Password: "", // no password
+		DB: 0, // default DB
+	})
+	return redisClient
+}
+
+func redisPing(client *redis.Client) (string, error) {
+	result, err := client.Ping().Result()
+	if err != nil {
+		return "", err
+	} else {
+		return result, nil
+	}
+}
+
+#go get -u github.com/go-redis/redis
+#go clean -i github.com/go-redis/redis
+go get github.com/redis/go-redis/v9
+
+#go get -u github.com/go-sql-driver/mysql
+#go run mysql-client.go
+
+go list -m -u all
+
+
+↓おすすめ
+https://github.com/redis/go-redis/blob/master/example_test.go
+
+
+
+
+
+func main() {
+    // Search value in redis
+    nameInRedis, err = redisClient.Get("name_"+strconv.Itoa(searchId)).Result()
+    if err != nil { // unexpected error
+      fmt.Println(err)
+    } else if err == redis.Nil { //key name_[searchId] does not exist in redis
+        // Open MySQL Connection
+        db, err := sql.Open("mysql", "root:root@tcp(127.0.0.1:3306)/test")
+        if err != nil {
+            panic(err.Error())
+        }
+        defer db.Close()
+
+        // Prepare statement for reading data
+        stmtOut, err := db.Prepare("SELECT name FROM test WHERE id = ?") // ? is the variable placeholder
+        if err != nil {
+            panic(err.Error())
+        }
+        defer stmtOut.Close() // Close the statement when we leave main() or the program terminates
+
+        // Query the rows that has id more than 5
+        rows, err := stmtOut.Query(searchId) 
+        if err != nil {
+            panic(err.Error()) 
+        }
+
+        // Process each rows accordingly
+        numRows = 0
+        for rows.Next() {
+            var nameInSQL string
+            err = rows.Scan(&nameInSQL)
+            if err != nil {
+                panic(err.Error())
+            }
+            fmt.Printf("name is %s\n", nameInSQL)
+            numRows = numRows + 1
+        }
+        if numRows == 0 {
+            fmt.Printf("corresponding name is not found\n")
+        } else { //key name_[searchId] exists in redis
+        fmt.Printf("name is %s\n", nameInRedis)
+        }
+    }
+}
+
+
+mysql -u root isuconp
+SELECT * FROM `comments` WHERE `post_id` = 1234 ORDER BY `created_at` DESC;
+SELECT `id`, `user_id`, `body`, `mime`, `created_at` FROM `posts` ORDER BY `created_at` DESC
+SELECT `id`, `user_id`, `body`, `mime`, `created_at` FROM `posts` WHERE `id` = 1234;
+
+https://qiita.com/mksamba/items/104698a73cdab1d514e0
+https://qiita.com/syantien/items/720ae96f9afd841bd757
+https://github.com/redis/go-redis
+

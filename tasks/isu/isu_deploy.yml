@@ -41,6 +41,13 @@
     path: /home/isucon/test-private_isu
     state: absent
 
+# Add
+- name: shell
+  shell: bash -lc "go get github.com/redis/go-redis/v9"
+  args:
+    chdir: /home/isucon/private_isu/webapp/golang/
+  ignore_errors: yes
+
 ### Execute as login shell
 - name: setup
   shell: bash -lc "sh setup.sh"
@@ -76,12 +83,24 @@
     path: /home/isucon/private_isu/webapp/sql/init.sh
     mode: '0755'
   become: yes
+  ignore_errors: yes
 
 - name: shell
   shell: sh /home/isucon/private_isu/webapp/sql/init.sh
 
+# Add
+- name: shell
+  shell: mysql --defaults-file=/etc/mysql/my.cnf -h 127.0.0.1 -P 3306 isuconp -e "alter table comments add index post_index(post_id);"
+  ignore_errors: yes
+
 - name: mysql is restarted
   systemd:
     name: mysql
+    state: restarted
+  become: yes
+
+- name: redis is restarted
+  systemd:
+    name: redis-server
     state: restarted
   become: yes

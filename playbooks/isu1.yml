@@ -7,12 +7,15 @@
   tasks:
     #- import_tasks : ../tasks/monitoring/fluent-bit.yml
     #- import_tasks : ../tasks/monitoring/node_exporter.yml
-    #- import_tasks : ../tasks/tasks_for_isu/netdata.yml
+    #- import_tasks : ../tasks/tasks_for_isu/all-close.yml
     #- import_tasks : ../tasks/tasks_for_isu/alp.yml
-    #- import_tasks : ../tasks/tasks_for_isu/nginx.yml
-    #- import_tasks : ../tasks/tasks_for_isu/pt-query-digest.yml
     #- import_tasks : ../tasks/tasks_for_isu/mysql.yml
+    #- import_tasks : ../tasks/tasks_for_isu/netdata.yml
+    #- import_tasks : ../tasks/tasks_for_isu/nginx.yml
     #- import_tasks : ../tasks/tasks_for_isu/os-data-collect.yml
+    #- import_tasks : ../tasks/tasks_for_isu/other-tools.yml
+    #- import_tasks : ../tasks/tasks_for_isu/pt-query-digest.yml
+    #- import_tasks : ../tasks/tasks_for_isu/redis.yml
 
 - name: isu
   hosts: isu1
