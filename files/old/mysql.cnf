@@ -3,6 +3,11 @@ slow_query_log = 1
 slow_query_log-file = /var/log/mysql/mysql-slow.sql
 long_query_time = 0.01
 
+# mysqltuner
+key_buffer_size=0
+innodb_buffer_pool_size = 3G
+innodb_log_file_size=16M
+
 [client]
 user = isuconp
 password = isuconp

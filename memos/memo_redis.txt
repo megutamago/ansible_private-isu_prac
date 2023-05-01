@@ -236,3 +236,9 @@ https://qiita.com/mksamba/items/104698a73cdab1d514e0
 https://qiita.com/syantien/items/720ae96f9afd841bd757
 https://github.com/redis/go-redis
 
+
+sudo nano /etc/redis/redis.conf
+bind ~ 以下をコメントアウトしてlocalhost以外からも繋げるようにする
+
+
+# chatGPT　一番役に立つ

@@ -1,5 +1,5 @@
 - name: isu-setup
-  hosts: isu1
+  hosts: isu_all
   gather_facts: no
   user: user
   become: yes

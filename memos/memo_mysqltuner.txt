@@ -1,0 +1,50 @@
+
+
+sh /opt/mysqltuner.pl
+
+
+-------- Recommendations ---------------------------------------------------------------------------
+General recommendations:
+    Check warning line(s) in /var/log/mysql/error.log file
+    Check error line(s) in /var/log/mysql/error.log file
+    MySQL was started within the last 24 hours: recommendations may be inaccurate
+    Reduce your overall MySQL memory footprint for system stability
+    Dedicate this server to your database for highest performance.
+    Configure your accounts with ip or subnets only, then update your configuration with skip-name-resolve=1
+    Buffer Key MyISAM set to 0, no MyISAM table detected
+    Before changing innodb_log_file_size and/or innodb_log_files_in_group read this: https://bit.ly/2TcGgtU
+Variables to adjust:
+  *** MySQL's maximum memory usage is dangerously high ***
+  *** Add RAM before increasing MySQL buffer variables ***
+    skip-name-resolve=1
+    key_buffer_size=0
+    innodb_log_file_size should be (=384M) if possible, so InnoDB total log file size equals 25% of buffer pool size.
+    innodb_buffer_pool_instances(=3)
+root@isu1:/opt#
+
+
+
+-------- Recommendations ---------------------------------------------------------------------------
+General recommendations:
+    Check warning line(s) in /var/log/mysql/error.log file
+    Check error line(s) in /var/log/mysql/error.log file
+    MySQL was started within the last 24 hours: recommendations may be inaccurate
+    Reduce your overall MySQL memory footprint for system stability
+    Dedicate this server to your database for highest performance.
+    Configure your accounts with ip or subnets only, then update your configuration with skip-name-resolve=1
+    Increase binlog_cache_size (current value: 32768)
+    Buffer Key MyISAM set to 0, no MyISAM table detected
+    Before changing innodb_log_file_size and/or innodb_log_files_in_group read this: https://bit.ly/2TcGgtU
+Variables to adjust:
+  *** MySQL's maximum memory usage is dangerously high ***
+  *** Add RAM before increasing MySQL buffer variables ***
+    skip-name-resolve=1
+    binlog_cache_size (16.0M)
+    key_buffer_size=0
+    innodb_buffer_pool_size (>= 1.2G) if possible.
+    innodb_log_file_size should be (=16M) if possible, so InnoDB total log file size equals 25% of buffer pool size.
+root@isu1:/opt#
+root@isu1:/opt#
+
+
+

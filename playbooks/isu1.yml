@@ -24,5 +24,36 @@
   max_fail_percentage: 0
   tasks:
     #- import_tasks : ../tasks/isu/isu_app-fetch.yml
-    - import_tasks : ../tasks/isu/isu_deploy.yml
-    
+    #- import_tasks : ../tasks/isu/isu_mysql.yml
+    #- import_tasks : ../tasks/isu/isu_deploy.yml
+    #- import_tasks : ../tasks/isu/isu_add_adds.yml
+
+
+- name: tasks_for_isu
+  hosts: isu2
+  gather_facts: no
+  user: user
+  become: yes
+  max_fail_percentage: 0
+  tasks:
+    #- import_tasks : ../tasks/monitoring/fluent-bit.yml
+    #- import_tasks : ../tasks/monitoring/node_exporter.yml
+    #- import_tasks : ../tasks/tasks_for_isu/all-close.yml
+    #- import_tasks : ../tasks/tasks_for_isu/alp.yml
+    #- import_tasks : ../tasks/tasks_for_isu/mysql.yml
+    #- import_tasks : ../tasks/tasks_for_isu/netdata.yml
+    #- import_tasks : ../tasks/tasks_for_isu/nginx.yml
+    #- import_tasks : ../tasks/tasks_for_isu/os-data-collect.yml
+    #- import_tasks : ../tasks/tasks_for_isu/other-tools.yml
+    #- import_tasks : ../tasks/tasks_for_isu/pt-query-digest.yml
+    #- import_tasks : ../tasks/tasks_for_isu/redis.yml
+
+- name: isu
+  hosts: isu2
+  gather_facts: no
+  user: isucon
+  max_fail_percentage: 0
+  tasks:
+    #- import_tasks : ../tasks/isu/isu_app-fetch.yml
+    #- import_tasks : ../tasks/isu/isu_deploy.yml
+    #- import_tasks : ../tasks/isu/isu_add_adds.yml
