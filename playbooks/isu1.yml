@@ -26,7 +26,7 @@
     #- import_tasks : ../tasks/isu/isu_app-fetch.yml
     #- import_tasks : ../tasks/isu/isu_mysql.yml
     #- import_tasks : ../tasks/isu/isu_deploy.yml
-    #- import_tasks : ../tasks/isu/isu_add_adds.yml
+    #- import_tasks : ../tasks/isu/isu_add.yml
 
 
 - name: tasks_for_isu
@@ -55,5 +55,5 @@
   max_fail_percentage: 0
   tasks:
     #- import_tasks : ../tasks/isu/isu_app-fetch.yml
-    #- import_tasks : ../tasks/isu/isu_deploy.yml
-    #- import_tasks : ../tasks/isu/isu_add_adds.yml
+    - import_tasks : ../tasks/isu/isu_deploy.yml
+    #- import_tasks : ../tasks/isu/isu_add.yml

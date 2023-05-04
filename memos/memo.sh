@@ -135,3 +135,79 @@ mysql> SELECT count(id) FROM comments;
 |    100142 |
 +-----------+
 
+
+
+# prompt
+
+「MySQLに格納しておきながらもCache上にも持たせてページ表示のときはCacheのデータを見る」
+の実装を教えて
+
+※以下、条件とする
+・キャッシュするクエリは以下とする
+"SELECT `id`, `user_id`, `body`, `mime`, `created_at` FROM `posts` ORDER BY `created_at` DESC"
+・Go言語を使用
+・Redisを使用
+・ソースコードのみを提示
+・構造体"Post"は以下とする。
+type Post struct {
+	ID           int       `db:"id"`
+	UserID       int       `db:"user_id"`
+	Imgdata      []byte    `db:"imgdata"`
+	Body         string    `db:"body"`
+	Mime         string    `db:"mime"`
+	CreatedAt    time.Time `db:"created_at"`
+	CommentCount int
+	Comments     []Comment
+	User         User
+	CSRFToken    string
+}
+
+
+# Go言語　落とし穴　まとめ
+https://qiita.com/tutuz/items/fedb8e3a1137d046f418
+
+
+# mysql on mem
+https://dev.mysql.com/doc/refman/8.0/ja/memory-use.html
+
+
+
+
+redis実装できた
+スコアは落ちた
+redis-cli --stat
+
+# レイテンシ測定
+redis-cli --latency -h `localhost` -p `6379`
+
+
+
+https://qiita.com/Fea/items/4d628d7ab31150809502
+
+https://smot93516.hatenablog.jp/entry/2021/08/04/132454
+
+
+
+# N+1 （かなりスコアに関わるよう）
+# 参考おすすめ
+https://scrapbox.io/mkizka/isucon%E7%B7%B4%E7%BF%92%E8%A8%98_private-isu
+https://qiita.com/muroya2355/items/d4eecbe722a8ddb2568b
+https://tech.classi.jp/entry/2021/12/23/133000
+
+
+# er 
+# SchemaSpy ローカルで用意
+https://bmf-tech.com/posts/DB%E3%83%89%E3%82%AD%E3%83%A5%E3%83%A1%E3%83%B3%E3%83%88%EF%BC%88ER%E5%9B%B3%E3%81%AA%E3%81%A9%EF%BC%89%E3%82%92%E8%87%AA%E5%8B%95%E7%94%9F%E6%88%90%E3%81%97%E3%81%A6%E3%81%8F%E3%82%8C%E3%82%8B%E3%83%84%E3%83%BC%E3%83%AB%E3%83%BCschemaspy,%20tbls
+https://qiita.com/zackey2/items/b6d637eff56dfaca1ec6
+https://zenn.dev/onozaty/articles/schema-spy-er
+
+
+データ分析　データの種類
+# データ型の比較記事
+https://meetsmore.com/product-services/databases/media/99426
+# データの基本
+https://www.stat.go.jp/naruhodo/4_graph/data.html
+
+
+
+必要最低限のデータを取得、保存する設計を見極める。

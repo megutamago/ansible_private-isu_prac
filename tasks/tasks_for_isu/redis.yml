@@ -17,3 +17,23 @@
   apt:
     name:
     - redis
+
+- name: Copy
+  copy:
+    src: ../../files/redis.conf
+    dest: /etc/redis/redis.conf
+    mode: '0644'
+    backup: true
+
+- name: redis is running
+  systemd:
+    name: redis-server
+    state: started
+    enabled: true
+  ignore_errors: yes
+
+- name: redis is restarted
+  systemd:
+    name: redis-server
+    state: restarted
+  ignore_errors: yes

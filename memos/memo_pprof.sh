@@ -13,6 +13,7 @@ curl -o cpu.pprof http://localhost:6060/debug/pprof/profile?seconds=60
 go tool pprof -http localhost:1080 cpu.pprof
 #(go tool pprof -http localhost:1080 cpu.pprof) &   # bg
 #kill -9 $(ps aux | grep 'go tool pprof -http localhost:1080 cpu.pprof' | grep -v grep | awk '{print $2}')
+ssh -fN -L 0.0.0.0:1080:localhost:1080 192.168.11.41
 http://192.168.11.21:1080/
 #\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\
 

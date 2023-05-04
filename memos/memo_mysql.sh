@@ -17,6 +17,7 @@ SHOW CREATE TABLE posts \G
 SHOW CREATE TABLE users \G
 # index確認
 show index from comments\G
+show index from posts\G
 
 mysql --defaults-file=/dev/null -h 127.0.0.1 -P 3306 -u isuconp -pisuconp isuconp
 vim /etc/mysql/my.cnf
