@@ -18,17 +18,17 @@
     dest: ../files/fetch/
     flat: yes
 
-#- name: create mysqldump
-#  shell: mysqldump -u isuconp dbname | gzip > /home/isucon/dbname.dump.gz 
-#
-#- name: fetch
-#  fetch:
-#    src: /home/isucon/dbname.dump.gz 
-#    dest: ../files/fetch/
-#    flat: yes
-#
-#- name: remove file
-#  file: 
-#    path: /home/isucon/private_isu/webapp.tar.gz
-#    state: absent
-#  ignore_errors: yes
+- name: create mysqldump
+  shell: mysqldump -u isuconp isuconp | gzip > /home/isucon/backup/isuconp.dump.sql.gz 
+
+- name: fetch
+  fetch:
+    src: /home/isucon/backup/isuconp.dump.sql.gz 
+    dest: ../files/fetch/
+    flat: yes
+
+- name: remove file
+  file: 
+    path: /home/isucon/backup/isuconp.dump.sql.gz 
+    state: absent
+  ignore_errors: yes

@@ -161,12 +161,16 @@ $ mysqldump -u isuconp -pisuconp -h localhost DB_NAME TABLE_NAME | gzip > db_nam
 # 全てのデータベース
 $ mysqldump -u isuconp -pisuconp -h localhost -A | gzip > db_name.dump.sql.gz
 # 解凍
-gzip -d db_name.dump.sql.gz | pv --progress --size 1.4g -t -e -r -a
+gzip -dk db_name.dump.sql.gz | pv --progress --size 1.4g -t -e -r -a
 
 # recovery
 pv hoge.dump.sql.gz --progress -t -e -r -a | mysql -u isuconp -pisuconp -h localhost isuconp < hoge.dump.sql
 pv db_name.dump.sql | mysql -u root -pPASSWORD < testdatabase
 
+
+create database testdatabase;
+gzip -dk isuconp.dump.gz | pv --progress --size 1.4g -t -e -r -a
+pv isuconp.dump | mysql -u root testdatabase2
 
 
 

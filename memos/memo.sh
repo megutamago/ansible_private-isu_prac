@@ -210,4 +210,34 @@ https://www.stat.go.jp/naruhodo/4_graph/data.html
 
 
 
-必要最低限のデータを取得、保存する設計を見極める。
+必要最低限のデータを取得、保存
+結局スコアに響くのはデータ処理の改善
+https://isucon.net/archives/56082639.html
+・limit   不要な行を取得するクエリの改善
+・levelカラムの追加   不要な行を取得するクエリの改善
+・N+1
+・index
+・created_at, DESC
+・アプリ側のログ出力コードを排除
+
+
+帯域幅確認: ifstat
+
+# TASK
+ネットワーク, DISK I/O
+◆k6, ab
+計測CLIツール色々インストール perf ifstat dstat .etc
+
+
+
+#
+・bulk insert、bulk update
+・静的ファイルをブラウザで保存
+・cookie, sticky (セッション維持)
+・index作成すると更新処理に負荷
+・explain, plan で高速化を分析できる
+・複合index
+・sharding
+・内部結合、外部結合、外部キー
+・複合主キー
+
