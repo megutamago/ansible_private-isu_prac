@@ -9,6 +9,15 @@
     dest: /etc/mysql/my.cnf
     mode: '0644'
     backup: true
+
+- name: set
+  lineinfile:
+    dest: /etc/systemd/system/mysql.service
+    backrefs: true
+    insertafter: EOF
+    regexp: '^#?\s*LimitNOFILE='
+    line: 'LimitNOFILE=65535'
+  ignore_errors: yes
   
 - name: remove file
   file: 

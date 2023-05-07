@@ -1,0 +1,10 @@
+[Unit]
+Description=tc
+After=network.target
+
+[Service]
+ExecStart=/root/tc.sh
+type=simple
+
+[Install]
+WantedBy=multi-user.target

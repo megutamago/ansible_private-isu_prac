@@ -1,0 +1,19 @@
+- name: Copy
+  copy:
+    src: "../files/tc.sh"
+    dest: /root/
+    mode: '0755'
+
+- name: Copy
+  copy:
+    src: "../files/tc.service"
+    dest: /etc/systemd/system/
+    mode: '0644'
+
+- name: tc is running
+  systemd:
+    name: tc
+    state: started
+    daemon_reload: true
+    enabled: true
+  ignore_errors: yes

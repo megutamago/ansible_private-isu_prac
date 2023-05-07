@@ -6,3 +6,14 @@
   max_fail_percentage: 0
   tasks:
     - import_tasks : ../tasks/isu/sshkey_after.yml
+    - import_tasks : ../tasks/isu/tc_after.yml
+
+- name: isu-setup
+  hosts: isu_bm
+  gather_facts: no
+  user: user
+  become: yes
+  max_fail_percentage: 0
+  tasks:
+    - import_tasks : ../tasks/isu/sshkey_after.yml
+    - import_tasks : ../tasks/isu/tc_after.yml
