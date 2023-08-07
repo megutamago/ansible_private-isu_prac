@@ -2,4 +2,4 @@
 #- import_playbook: ./playbooks/isu1.yml
 #- import_playbook: ./playbooks/isu2.yml
 #- import_playbook: ./playbooks/isu3.yml
-- import_playbook: ./playbooks/isu-bm.yml
+#- import_playbook: ./playbooks/isu-bm.yml

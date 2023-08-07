@@ -14,7 +14,7 @@
     #- import_tasks : ../tasks/tasks_for_isu/nginx.yml
     #- import_tasks : ../tasks/tasks_for_isu/os-data-collect.yml
     #- import_tasks : ../tasks/tasks_for_isu/other-tools.yml
-    - import_tasks : ../tasks/tasks_for_isu/parameter.yml
+    #- import_tasks : ../tasks/tasks_for_isu/parameter.yml
     #- import_tasks : ../tasks/tasks_for_isu/pt-query-digest.yml
     #- import_tasks : ../tasks/tasks_for_isu/redis.yml
 
