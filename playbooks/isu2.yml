@@ -1,5 +1,5 @@
 - name: tasks_for_isu
-  hosts: isu1
+  hosts: isu2
   gather_facts: no
   user: user
   become: yes
@@ -19,12 +19,11 @@
     #- import_tasks : ../tasks/tasks_for_isu/redis.yml
 
 - name: isu
-  hosts: isu1
+  hosts: isu2
   gather_facts: no
   user: isucon
   max_fail_percentage: 0
   tasks:
     #- import_tasks : ../tasks/isu/isu_app-fetch.yml
-    #- import_tasks : ../tasks/isu/isu_mysql.yml
     - import_tasks : ../tasks/isu/isu_deploy.yml
     #- import_tasks : ../tasks/isu/isu_add.yml

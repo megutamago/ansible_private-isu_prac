@@ -32,7 +32,6 @@ mysql --defaults-file=/etc/mysql/my.cnf -h 127.0.0.1 -P 3306 isuconp -e "show va
 mysql --defaults-file=/etc/mysql/my.cnf -h 127.0.0.1 -P 3306 isuconp -e "show variables like 'long%';"
 mysql --defaults-file=/etc/mysql/my.cnf -h 127.0.0.1 -P 3306 isuconp -e "SHOW VARIABLES;" | grep query
 
-
 # 公開設定
 ※MySQLは、次のファイルに指定された順番に起動オプションを読み取っていきます。
 上から順番に読み込んでいき、下のファイルを読み込んでいく中で同じ項目の設定があると、上書きされて下の方のファイルに設定されている内容が有効になります。
@@ -240,3 +239,31 @@ chmod +x mysqltuner.pl
 
 https://qiita.com/mamy1326/items/9c5eaee3c986cff65a55#-index-%E3%82%92%E8%BF%BD%E5%8A%A0
 
+
+
+
+typeを確認
+  const・・・PRIMARY KEYまたはUNIQUEインデックスのルックアップによるアクセス。最速。
+  eq_ref・・・JOINにおいてPRIARY KEYまたはUNIQUE KEYが利用される時のアクセスタイプ。constと似ているがJOINで用いられるところが違う。
+  ref・・・ユニーク（PRIMARY or UNIQUE）でないインデックスを使って等価検索（WHERE key = value）を行った時に使われるアクセスタイプ。
+  range・・・インデックスを用いた範囲検索。
+  index・・・フルインデックススキャン。インデックス全体をスキャンする必要があるのでとても遅い。
+  ALL・・・フルテーブルスキャン。インデックスがまったく利用されていないことを示す。OLTP系の処理では改善必須。
+※indexまたはALLを見かけたらすかさずクエリをチューニングしよう。
+
+↓rangeになる場合、ならない場合
+https://zenn.dev/m_yamashii/articles/mysql-index-cardinality
+
+その他
+  possible_keys: SQLを実行する上で利用可能なINDEXとして候補にあがったINDEX
+  key: 実際に選択されたINDEX
+  Extra: 追加情報 Using filesortやUsing temporaryが出たら赤信号
+Using filesortとUsing temporaryは最悪な組み合わせ
+Using filesortはソートに必要な領域がメモリ上に乗り切らずに物理ファイルに書き出しソートを行う。
+Using temporaryはクエリを実行するのにテンポラリテーブルが作られる。
+リアルタイム処理を行うようなシステムの場合はUsing filesortとUsing temporaryが表示されたら改善必須
+
+
+# Where狙いのキー、order by狙いのキー
+https://www.konosumi.net/entry/2020/03/15/234810
+https://gihyo.jp/dev/serial/01/mysql-road-construction-news/0097#:~:text=%E3%81%97%E3%81%A6%E3%81%84%E3%81%BE%E3%81%99%E3%80%82-,STRAIGHT_JOIN,INNER%20JOIN%E3%82%92%E8%A1%8C%E3%81%84%E3%81%BE%E3%81%99%E3%80%82
